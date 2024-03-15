@@ -6,8 +6,12 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+import re
 
 
 class TinydealPipeline:
     def process_item(self, item, spider):
+        for key in item:
+            if isinstance(item[key], str):
+                item[key] = re.sub(r'\s+', ' ', item[key].replace(u'\xa0', ' '))
         return item
